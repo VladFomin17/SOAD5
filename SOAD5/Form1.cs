@@ -15,7 +15,7 @@ namespace SOAD5
     {
         private int n = 1000000;
         private long[] mas;
-        private const int replay = 10000000;
+        private const int replay = 5000000;
 
         public Form()
         {
@@ -83,6 +83,8 @@ namespace SOAD5
             for (int i = 0; i < replay; i++)
             {
                 // Алгоритм оптимального бинарного поиска (алогритм B)
+                left = 0;
+                right = n - 1;
                 index = (right + left) / 2;
 
                 while (left < right)
@@ -107,6 +109,8 @@ namespace SOAD5
 
             for (int k = 0; k < replay; k++)
             {
+                left = 0;
+                right = n - 1;
                 while (left < right && key > mas[left] && key < mas[right])
                 {   
                     index = (int)(left + (key - mas[left]) * (right - left) / (mas[right] - mas[left]));
@@ -129,12 +133,14 @@ namespace SOAD5
         private void sequentSearch(int key)
         {
             int index = 0;
+            int P = 0;
+            int B = n / 2;
             int startTime = Environment.TickCount;
 
             for (int k = 0; k < replay; k++)
             {
-                int P = 0;
-                int B = n / 2;
+                P = 0;
+                B = n / 2;
 
                 while (B > 0)
                 {
@@ -170,7 +176,7 @@ namespace SOAD5
                 }
                 index = j;
             }
-            int resultTime = (Environment.TickCount - startTime) * 10000;
+            int resultTime = (Environment.TickCount - startTime) * 5000;
             if (mas[index] != key) orderedIndexText.Text = "Не найден";
             else orderedIndexText.Text = index.ToString();
             orderedTimeText.Text = resultTime.ToString();
